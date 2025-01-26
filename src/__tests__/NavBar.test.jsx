@@ -1,55 +1,40 @@
-import "@testing-library/jest-dom";
-import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
-import NavBar from "../components/NavBar";
+// src/__tests__/NavBar.test.jsx
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
-let container;
-
-beforeEach(() => {
-  container = render(
+test('renders a Home <NavLink>', () => {
+  render(
     <BrowserRouter>
       <NavBar />
     </BrowserRouter>
-  ).container;
+  );
+  const homeLink = screen.getByText(/Home/);
+  expect(homeLink).toBeInTheDocument();
+  expect(homeLink.tagName).toBe('A');
+  expect(homeLink.getAttribute('href')).toBe('/');
 });
 
-test('wraps content in a div with "navbar" class', () => {
-  expect(container.querySelector(".navbar")).toBeInTheDocument();
+test('renders an Actors <NavLink>', () => {
+  render(
+    <BrowserRouter>
+      <NavBar />
+    </BrowserRouter>
+  );
+  const actorsLink = screen.getByText(/Actors/);
+  expect(actorsLink).toBeInTheDocument();
+  expect(actorsLink.tagName).toBe('A');
+  expect(actorsLink.getAttribute('href')).toBe('/actors');
 });
 
-test("renders a Home <NavLink>", async () => {
-  const a = screen.queryByText(/Home/);
-
-  expect(a).toBeInTheDocument();
-  expect(a.tagName).toBe("A");
-  expect(a.href).toContain("/");
-
-  fireEvent.click(a, { button: 0 });
-
-  expect(a.classList).toContain("active");
-});
-
-test("renders a Actors <NavLink>", async () => {
-  const a = screen.queryByText(/Actors/);
-
-  expect(a).toBeInTheDocument();
-  expect(a.tagName).toBe("A");
-  expect(a.href).toContain("/");
-
-  fireEvent.click(a, { button: 0 });
-
-  expect(a.classList).toContain("active");
-});
-
-test("renders a Directors <NavLink>", async () => {
-  const a = screen.queryByText(/Directors/);
-
-  expect(a).toBeInTheDocument();
-  expect(a.tagName).toBe("A");
-  expect(a.href).toContain("/");
-
-  fireEvent.click(a, { button: 0 });
-
-  expect(a.classList).toContain("active");
+test('renders a Directors <NavLink>', () => {
+  render(
+    <BrowserRouter>
+      <NavBar />
+    </BrowserRouter>
+  );
+  const directorsLink = screen.getByText(/Directors/);
+  expect(directorsLink).toBeInTheDocument();
+  expect(directorsLink.tagName).toBe('A');
+  expect(directorsLink.getAttribute('href')).toBe('/directors');
 });

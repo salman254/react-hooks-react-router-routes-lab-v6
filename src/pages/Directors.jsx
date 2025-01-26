@@ -1,16 +1,22 @@
-import { useEffect, useState } from "react";
+// src/pages/Directors.jsx
+import React from 'react';
 
-function Directors() {
+function Directors({ directors = [] }) { // Default to an empty array
   return (
-    <>
-      <header>
-        {/* What component should go here? */}
-      </header>
-      <main>
-        {/* Director info here! */}
-      </main>
-    </>
+    <div>
+      <h1>Directors Page</h1>
+      {directors.map(director => (
+        <article key={director.id}>
+          <h2>{director.name}</h2>
+          <ul>
+            {director.movies.map((movie, index) => (
+              <li key={index}>{movie}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
   );
-};
+}
 
 export default Directors;
